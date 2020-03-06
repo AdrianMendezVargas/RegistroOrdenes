@@ -10,12 +10,13 @@ namespace RegistroOrdenes.Entidades {
         public int ProductoId { get; set; }
         public string Descripcion { get; set; }
         public decimal Precio { get; set; }
+        public int CantidadInventario { get; set; }
 
         public Producto() {
             ProductoId = 0;
             Descripcion = "";
             Precio = 0;
-
+            CantidadInventario = 0;
         }
     }
 }

@@ -5,15 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RegistroOrdenes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="508">
+        Title="MainWindow" Height="450" Width="414">
     <Grid>
 
         <Menu>
             <MenuItem Header="_Registro">
-                <MenuItem x:Name="RegitroENTIDADMenuItem" Header="_ENTIDAD" Click=""/>
+                <MenuItem x:Name="RegitroClienteMenuItem" Header="_Cliente" Click="RegitroClienteMenuItem_Click"/>
+                <MenuItem x:Name="RegitroProductoMenuItem" Header="_Producto" Click="RegitroProductoMenuItem_Click"/>
+
             </MenuItem>
             <MenuItem Header="_Consulta">
-                <MenuItem x:Name="ConsultaENTIDADMenuItem" Header="_ENTIDAD" Click=""/>
+                <MenuItem x:Name="ConsultaClienteMenuItem" Header="_Cliente" Click="ConsultaClienteMenuItem_Click"/>
+                <MenuItem x:Name="ConsultaProductoMenuItem" Header="_Producto" Click="ConsultaProductoMenuItem_Click"/>
+
             </MenuItem>
         </Menu>
 

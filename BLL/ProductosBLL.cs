@@ -5,18 +5,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 
 namespace RegistroOrdenes.BLL {
-	public class ClientesBLL {
+	public class ProductosBLL {
 
-		public static bool Guardar(Cliente cliente) {
+		public static bool Guardar(Producto producto) {
 			bool paso = false;
 
 			Contexto db = new Contexto();
 
 			try {
 
-				db.Clientes.Add(cliente);
+				db.Productos.Add(producto);
 				paso = (db.SaveChanges() > 0);
 
 			} catch (Exception) {
@@ -29,14 +30,14 @@ namespace RegistroOrdenes.BLL {
 
 			return paso;
 		}
-		public static Cliente Buscar(int clienteId) {
+		public static Producto Buscar(int productoId) {
 
 			Contexto db = new Contexto();
-			Cliente cliente = new Cliente();
+			Producto producto = new Producto();
 
 			try {
 
-				cliente = db.Clientes.Find(clienteId);
+				producto = db.Productos.Find(productoId);
 
 			} catch (Exception) {
 
@@ -46,9 +47,9 @@ namespace RegistroOrdenes.BLL {
 				db.Dispose();
 			}
 
-			return cliente;
+			return producto;
 		}
-		public static bool Eliminar(int clienteId) {
+		public static bool Eliminar(int productoId) {
 			bool paso = false;
 
 			Contexto db = new Contexto();
@@ -56,9 +57,9 @@ namespace RegistroOrdenes.BLL {
 
 			try {
 
-				var cliente = db.Clientes.Find(clienteId);
-				if (cliente != null) {
-					db.Entry(cliente).State = EntityState.Deleted;
+				var producto = db.Productos.Find(productoId);
+				if (producto != null) {
+					db.Entry(producto).State = EntityState.Deleted;
 					paso = (db.SaveChanges() > 0);
 				}
 
@@ -72,14 +73,14 @@ namespace RegistroOrdenes.BLL {
 
 			return paso;
 		}
-		public static bool Modificar(Cliente cliente) {
+		public static bool Modificar(Producto producto) {
 			bool paso = false;
 
 			Contexto db = new Contexto();
 
 			try {
 
-				db.Entry(cliente).State = EntityState.Modified;
+				db.Entry(producto).State = EntityState.Modified;
 				paso = (db.SaveChanges() > 0);
 
 			} catch (Exception) {
@@ -93,14 +94,14 @@ namespace RegistroOrdenes.BLL {
 			return paso;
 		}
 
-		public static List<Cliente> GetList(Expression<Func<Cliente, bool>> expression) {
+		public static List<Producto> GetList(Expression<Func<Producto , bool>> expression) {
 
-			List<Cliente> clientesList = new List<Cliente>();
+			List<Producto> productosList = new List<Producto>();
 			Contexto db = new Contexto();
 
 			try {
 
-				clientesList = db.Clientes.Where(expression).ToList();
+				productosList = db.Productos.Where(expression).ToList();
 
 			} catch (Exception) {
 
@@ -109,8 +110,7 @@ namespace RegistroOrdenes.BLL {
 				db.Dispose();
 			}
 
-			return clientesList;
-		} 
-
+			return productosList;
+		}
 	}
 }
