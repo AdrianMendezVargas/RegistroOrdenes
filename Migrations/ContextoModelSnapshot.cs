@@ -35,6 +35,9 @@ namespace RegistroOrdenes.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<decimal>("Monto")
                         .HasColumnType("TEXT");
 
@@ -49,7 +52,7 @@ namespace RegistroOrdenes.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ClienteId")
+                    b.Property<int>("OrdenId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("ProductoId")
@@ -57,7 +60,7 @@ namespace RegistroOrdenes.Migrations
 
                     b.HasKey("OrdenDetalleId");
 
-                    b.HasIndex("ClienteId");
+                    b.HasIndex("OrdenId");
 
                     b.ToTable("OrdenDetalle");
                 });
@@ -85,8 +88,8 @@ namespace RegistroOrdenes.Migrations
             modelBuilder.Entity("RegistroOrdenes.Entidades.OrdenDetalle", b =>
                 {
                     b.HasOne("RegistroOrdenes.Entidades.Orden", null)
-                        .WithMany("Detalle")
-                        .HasForeignKey("ClienteId")
+                        .WithMany("DetalleProductos")
+                        .HasForeignKey("OrdenId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

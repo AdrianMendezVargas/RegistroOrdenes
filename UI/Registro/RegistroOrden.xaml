@@ -6,14 +6,13 @@
         xmlns:local="clr-namespace:RegistroOrdenes.UI.Registro"
         xmlns:validaciones="clr-namespace:RegistroOrdenes.UI.Validaciones"
         mc:Ignorable="d"
-        Title="RegistroOrden" Height="314" Width="400">
+        Title="RegistroOrden" Height="434" Width="400">
     <Grid x:Name="RegistroOrdenGrid">
 
         <Label Content="Orden Id" HorizontalAlignment="Left" Margin="30,79,0,0" VerticalAlignment="Top"/>
-
         <TextBox x:Name="OrdenIdTextBox" Style="{StaticResource TextBoxInError}" HorizontalAlignment="Left" Margin="182,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
             <TextBox.Text>
-                <Binding Path="producto.OrdenId" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnSourceUpdated="True" NotifyOnTargetUpdated="True" >
+                <Binding Path="orden.OrdenId" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnSourceUpdated="True" NotifyOnTargetUpdated="True" >
                     <Binding.ValidationRules>
                         <ExceptionValidationRule/>
                     </Binding.ValidationRules>
@@ -23,28 +22,18 @@
 
         <Button x:Name="BuscarButton" Click="BuscarButton_Click" Content="Buscar" HorizontalAlignment="Left" Margin="311,82,0,0" VerticalAlignment="Top"/>
 
-
-        <Label Content="Descripción del Orden" HorizontalAlignment="Left" Margin="30,107,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="DescripcionTextBox" Style="{StaticResource TextBoxInError}" HorizontalAlignment="Left" Margin="230,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
-            <Binding Path="producto.Descripcion" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnSourceUpdated="True" NotifyOnTargetUpdated="True">
-                <Binding.ValidationRules>
-                    <validaciones:CamposOblicatoriosRule/>
-                </Binding.ValidationRules>
-            </Binding>
-        </TextBox>
-
-        <Label Content="Precio del producto" HorizontalAlignment="Left" Margin="30,135,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="PrecioTextBox" Style="{StaticResource TextBoxInError}" HorizontalAlignment="Left" Margin="230,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
-            <Binding Path="producto.Precio" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnSourceUpdated="True" NotifyOnTargetUpdated="True" >
+        <Label Content="Cliente Id" HorizontalAlignment="Left" Margin="30,110,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="ClienteIdTextBox" Style="{StaticResource TextBoxInError}" HorizontalAlignment="Left" Margin="182,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168">
+            <Binding Path="orden.ClienteId" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnSourceUpdated="True" NotifyOnTargetUpdated="True" >
                 <Binding.ValidationRules>
                     <ExceptionValidationRule/>
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
 
-        <Label Content="Cantidad en inventario" HorizontalAlignment="Left" Margin="30,162,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="CantidadInventarioTextBox" Style="{StaticResource TextBoxInError}" HorizontalAlignment="Left" Margin="230,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
-            <Binding Path="producto.CantidadInventario" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnSourceUpdated="True" NotifyOnTargetUpdated="True" >
+        <Label Content="Producto Id" HorizontalAlignment="Left" Margin="30,142,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="ProductoIdTextBox" Style="{StaticResource TextBoxInError}" HorizontalAlignment="Left" Margin="182,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="108">
+            <Binding Path="ProductoId" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnSourceUpdated="True" NotifyOnTargetUpdated="True" >
                 <Binding.ValidationRules>
                     <ExceptionValidationRule/>
                 </Binding.ValidationRules>
@@ -56,7 +45,16 @@
             <Button x:Name="GuardarButton" Click="GuardarButton_Click" Content="Guardar" HorizontalAlignment="Left" Margin="99,0,0,0" Height="30" VerticalAlignment="Bottom"/>
             <Button x:Name="EliminarButton" Click="EliminarButton_Click" Content="Eliminar" HorizontalAlignment="Left" Margin="201,0,0,0" Height="30" VerticalAlignment="Bottom"/>
         </Grid>
-
+        <Button x:Name="AgregarProductoButton" Content="Agregar" Click="AgregarProductoButton_Click" HorizontalAlignment="Left" Margin="303,145,0,0" VerticalAlignment="Top"/>
+        <DataGrid x:Name="ProductosDataGrid" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="30,187,0,114" Width="320" ItemsSource="{Binding orden.DetalleProductos, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Precio" Binding="{Binding Precio}"/>
+                <DataGridTextColumn Header="Descripción" Binding="{Binding Descripcion}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="EliminarProductoButton" Click="EliminarProductoButton_Click" Content="Eliminar Producto" HorizontalAlignment="Left" Margin="30,0,0,89" Height="20" VerticalAlignment="Bottom"/>
+        <Label Content="Monto" HorizontalAlignment="Left" Margin="200,306,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.613,0.194"/>
+        <TextBox x:Name="MontoTextBox" HorizontalAlignment="Left" IsReadOnly="True" Margin="251,310,0,0" Text="{Binding orden.Monto}" TextWrapping="Wrap" VerticalAlignment="Top" Width="99" Foreground="#FF15A129"/>
 
     </Grid>
 </Window>

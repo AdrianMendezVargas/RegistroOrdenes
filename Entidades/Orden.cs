@@ -10,14 +10,16 @@ namespace RegistroOrdenes.Entidades {
         [Key]
         public int OrdenId { get; set; }
         public decimal Monto { get; set; }
+        public int ClienteId { get; set; }
 
-        [ForeignKey("ClienteId")]
-        public List<OrdenDetalle> Detalle { get; set; }
+        [ForeignKey("OrdenId")]
+        public virtual List<OrdenDetalle> DetalleProductos { get; set; }
 
         public Orden() {
             OrdenId = 0;
             Monto = 0.0m;
-            Detalle = new List<OrdenDetalle>();
+            ClienteId = 0;
+            DetalleProductos = new List<OrdenDetalle>();
         }
     }
 }

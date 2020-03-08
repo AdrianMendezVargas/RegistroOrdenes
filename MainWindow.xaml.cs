@@ -44,5 +44,15 @@ namespace RegistroOrdenes {
         private void ConsultaProductoMenuItem_Click(object sender , RoutedEventArgs e) {
 
         }
+
+        private void RegitroOrdenMenuItem_Click(object sender , RoutedEventArgs e) {
+            RegistroOrden registroOrden = new RegistroOrden();
+            registroOrden.Owner = this;
+            registroOrden.ShowDialog();
+        }
+
+        private void ConsultaOrdenMenuItem_Click(object sender , RoutedEventArgs e) {
+
+        }
     }
 }

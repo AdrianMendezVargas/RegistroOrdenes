@@ -25,7 +25,8 @@ namespace RegistroOrdenes.Migrations
                 {
                     OrdenId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Monto = table.Column<decimal>(nullable: false)
+                    Monto = table.Column<decimal>(nullable: false),
+                    ClienteId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,24 +54,24 @@ namespace RegistroOrdenes.Migrations
                 {
                     OrdenDetalleId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ClienteId = table.Column<int>(nullable: false),
+                    OrdenId = table.Column<int>(nullable: false),
                     ProductoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrdenDetalle", x => x.OrdenDetalleId);
                     table.ForeignKey(
-                        name: "FK_OrdenDetalle_Ordenes_ClienteId",
-                        column: x => x.ClienteId,
+                        name: "FK_OrdenDetalle_Ordenes_OrdenId",
+                        column: x => x.OrdenId,
                         principalTable: "Ordenes",
                         principalColumn: "OrdenId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrdenDetalle_ClienteId",
+                name: "IX_OrdenDetalle_OrdenId",
                 table: "OrdenDetalle",
-                column: "ClienteId");
+                column: "OrdenId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

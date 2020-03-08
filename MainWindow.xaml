@@ -12,11 +12,13 @@
             <MenuItem Header="_Registro">
                 <MenuItem x:Name="RegitroClienteMenuItem" Header="_Cliente" Click="RegitroClienteMenuItem_Click"/>
                 <MenuItem x:Name="RegitroProductoMenuItem" Header="_Producto" Click="RegitroProductoMenuItem_Click"/>
+                <MenuItem x:Name="RegitroOrdenMenuItem" Header="_Orden" Click="RegitroOrdenMenuItem_Click"/>
 
             </MenuItem>
             <MenuItem Header="_Consulta">
                 <MenuItem x:Name="ConsultaClienteMenuItem" Header="_Cliente" Click="ConsultaClienteMenuItem_Click"/>
                 <MenuItem x:Name="ConsultaProductoMenuItem" Header="_Producto" Click="ConsultaProductoMenuItem_Click"/>
+                <MenuItem x:Name="ConsultaOrdenMenuItem" Header="_Orden" Click="ConsultaOrdenMenuItem_Click"/>
 
             </MenuItem>
         </Menu>
