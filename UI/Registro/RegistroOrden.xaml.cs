@@ -3,6 +3,7 @@ using RegistroOrdenes.BLL;
 using RegistroOrdenes.Entidades;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 
 namespace RegistroOrdenes.UI.Registro {
@@ -15,7 +16,9 @@ namespace RegistroOrdenes.UI.Registro {
 		public Orden orden { get { return _orden; } set { _orden = value; MyPropertyChanged("orden"); } }
 
 		public int ProductoId { get; set; }
-		public List<Producto> ProductosList { get; set; }
+		public List<Producto> ProductosAgregadosList { get; set; }
+
+		private List<Producto> productosDisponibles = new List<Producto>();
 
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -24,8 +27,10 @@ namespace RegistroOrdenes.UI.Registro {
 			InitializeComponent();
 			orden = new Orden();
 			_orden = new Orden();
-			ProductosList = new List<Producto>();
+			ProductosAgregadosList = new List<Producto>();
+			productosDisponibles = ProductosBLL.GetList(p => true);
 			RegistroOrdenGrid.DataContext = this;
+
 		}
 
 
@@ -104,7 +109,7 @@ namespace RegistroOrdenes.UI.Registro {
 						Producto producto = ProductosBLL.Buscar(item.ProductoId);
 
 						if (producto != null) {
-							ProductosList.Add(producto);
+							ProductosAgregadosList.Add(producto);
 						}
 					}
 					CargarProductosDataGrid();
@@ -121,15 +126,32 @@ namespace RegistroOrdenes.UI.Registro {
 
 		private void EliminarProductoButton_Click(object sender , RoutedEventArgs e) {
 
-			if (ProductosList.Count > 0 && ProductosDataGrid.SelectedIndex != -1) {
+			if (ProductosAgregadosList.Count > 0 && ProductosDataGrid.SelectedIndex != -1) {
 
-				orden.Monto -= ProductosList[ProductosDataGrid.SelectedIndex].Precio; //Restando el precio del producto eliminado al monto
+				orden.Monto -= ProductosAgregadosList[ProductosDataGrid.SelectedIndex].Precio; //Restando el precio del producto eliminado al monto
 
-				ProductosList.RemoveAt(ProductosDataGrid.SelectedIndex);
+
+				//Devolviendo el producto al inventario
+				for (int i = 0 ; i < productosDisponibles.Count ; i++) {
+					if (productosDisponibles[i].ProductoId == ProductosAgregadosList[ProductosDataGrid.SelectedIndex].ProductoId) {
+						productosDisponibles[i].CantidadInventario++;
+						break;
+					}
+
+				}
+
+				ProductosAgregadosList.RemoveAt(ProductosDataGrid.SelectedIndex);
 				orden.DetalleProductos.RemoveAt(ProductosDataGrid.SelectedIndex); //Removemos el producto en las 2 listas
 
 				CargarProductosDataGrid();
 				MyPropertyChanged("orden");
+
+				
+				
+				
+
+				
+
 			}
 
 		}
@@ -144,13 +166,30 @@ namespace RegistroOrdenes.UI.Registro {
 					MessageBox.Show("Este producto no existe");
 					
 				} else {
-					ProductosList.Add(nuevoProducto);
 
-					orden.Monto += nuevoProducto.Precio;
-					orden.DetalleProductos.Add(new OrdenDetalle() { ProductoId = this.ProductoId , OrdenId = this.orden.OrdenId, OrdenDetalleId = 0});
-					MyPropertyChanged("orden");
+					int pos = -1;
+					for (int i = 0 ; i < productosDisponibles.Count ; i++) {
+						if (productosDisponibles[i].ProductoId == nuevoProductoId) {
+							pos = i;
+							break;
+						}
+						
+					}
 
-					CargarProductosDataGrid();
+					if (productosDisponibles[pos].CantidadInventario > 0) { //Verificando que aun quedan en el inventario
+						productosDisponibles[pos].CantidadInventario--;
+						ProductosAgregadosList.Add(nuevoProducto);
+
+						orden.Monto += nuevoProducto.Precio;
+						orden.DetalleProductos.Add(new OrdenDetalle() { ProductoId = this.ProductoId , OrdenId = this.orden.OrdenId , OrdenDetalleId = 0 });
+						MyPropertyChanged("orden");
+
+						CargarProductosDataGrid();
+
+						
+					} else {
+						MessageBox.Show("Este producto se ha agotado");
+					}
 				}
 			} else {
 				MessageBox.Show("Este Producto Id no es valido");
@@ -161,7 +200,7 @@ namespace RegistroOrdenes.UI.Registro {
 
 		private void CargarProductosDataGrid() {
 			ProductosDataGrid.ItemsSource = null;
-			ProductosDataGrid.ItemsSource = ProductosList;
+			ProductosDataGrid.ItemsSource = ProductosAgregadosList;
 		}
 
 		private void Limpiar() {
@@ -169,7 +208,7 @@ namespace RegistroOrdenes.UI.Registro {
 			orden.ClienteId = 0;
 			orden.Monto = 0.0m;
 			orden.DetalleProductos.Clear();
-			ProductosList.Clear();
+			ProductosAgregadosList.Clear();
 			ProductoId = 0;
 			CargarProductosDataGrid();
 			MyPropertyChanged("orden");
