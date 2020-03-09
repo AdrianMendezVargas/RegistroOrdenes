@@ -13,6 +13,8 @@ namespace RegistroOrdenes.DAL {
         
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+            optionsBuilder.EnableSensitiveDataLogging(true);
+            optionsBuilder.EnableDetailedErrors(true);
             optionsBuilder.UseSqlite("Data Source = RegistroOrdenes.db");
         }
     }

@@ -37,27 +37,30 @@ namespace RegistroOrdenes.BLL {
             return paso;
         }
 
-        public static bool Modificar(Orden orden) {
+        public static bool Modificar(Orden orden) { //TODO: Ejecular la eliminacion con un RawQuery
             bool paso = false;
 
-            Contexto db = new Contexto();
-            //buscar las entidades que no estan para removerlas
-            var Anterior = db.Ordenes.Find(orden.OrdenId);
+            Contexto _db = new Contexto();    // Creado un Contexto auxiliar, ya que no se puede tener la misma entidad dos veces en el mismo contexto
 
+            //buscar las entidades que no estan para removerlas. 
+            var Anterior = _db.Ordenes.Find(orden.OrdenId);
+            _db.Dispose(); //Cerrando el contexto auxiliar
+
+            Contexto db = new Contexto();
             foreach (var item in Anterior.DetalleProductos) {
 
-                if (!orden.DetalleProductos.Exists(d => d.ProductoId == item.ProductoId)) {
+                if (!orden.DetalleProductos.Exists(d => d.OrdenDetalleId == item.OrdenDetalleId)) {
                     db.Entry(item).State = EntityState.Deleted;
                 }
-            }
+            }    
 
             //recorrer el detalle
             foreach (var item in orden.DetalleProductos) {
 
                 //Muy importante indicar que pasara con la entidad del detalle
-                var estado = item.ProductoId > 0 ? EntityState.Modified : EntityState.Added;
+                var estado = item.OrdenDetalleId > 0 ? EntityState.Modified : EntityState.Added;
                 db.Entry(item).State = estado;
-            }
+            }  
 
             try {
                 //Indicar que se esta modificando el encabezado

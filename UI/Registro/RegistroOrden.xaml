@@ -54,7 +54,7 @@
         </DataGrid>
         <Button x:Name="EliminarProductoButton" Click="EliminarProductoButton_Click" Content="Eliminar Producto" HorizontalAlignment="Left" Margin="30,0,0,89" Height="20" VerticalAlignment="Bottom"/>
         <Label Content="Monto" HorizontalAlignment="Left" Margin="200,306,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.613,0.194"/>
-        <TextBox x:Name="MontoTextBox" HorizontalAlignment="Left" IsReadOnly="True" Margin="251,310,0,0" Text="{Binding orden.Monto}" TextWrapping="Wrap" VerticalAlignment="Top" Width="99" Foreground="#FF15A129"/>
+        <TextBox x:Name="MontoTextBox" HorizontalAlignment="Left" IsReadOnly="False" Margin="251,310,0,0" Text="{Binding orden.Monto}" TextWrapping="Wrap" VerticalAlignment="Top" Width="99" Foreground="#FF15A129"/>
 
     </Grid>
 </Window>

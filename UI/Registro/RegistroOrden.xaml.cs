@@ -49,6 +49,7 @@ namespace RegistroOrdenes.UI.Registro {
 				guardado = OrdenesBLL.Guardar(orden);
 			} else {
 				if (ExisteEnBaseDatos()) {
+					MessageBox.Show("MOdificar");
 					guardado = OrdenesBLL.Modificar(orden);
 
 				} else {
@@ -67,15 +68,26 @@ namespace RegistroOrdenes.UI.Registro {
 
 		private void EliminarButton_Click(object sender , RoutedEventArgs e) {
 
-			int.TryParse(OrdenIdTextBox.Text , out int ordenId);
+			bool eliminado = false;
 
-			bool eliminado = OrdenesBLL.Eliminar(ordenId);
+			if (int.TryParse(OrdenIdTextBox.Text , out int ordenId)) {
+				if (ExisteEnBaseDatos()) {
+					eliminado = OrdenesBLL.Eliminar(ordenId);
+				} else {
+					MessageBox.Show("Esta Orden no existe.");
+					return;
+				}
+				
+			} else {
+				MessageBox.Show("Esta Orden id es invalida.");
+				return;
+			} 
 
 			if (eliminado) {
 				Limpiar();
 				MessageBox.Show("Eliminado.");
 			} else {
-				MessageBox.Show("Esta orden no existe.");
+				MessageBox.Show("Error al eliminar.");
 			}
 
 		}
@@ -109,6 +121,17 @@ namespace RegistroOrdenes.UI.Registro {
 		}
 
 		private void EliminarProductoButton_Click(object sender , RoutedEventArgs e) {
+
+			if (ProductosList.Count > 0 && ProductosDataGrid.SelectedIndex != -1) {
+
+				orden.Monto -= ProductosList[ProductosDataGrid.SelectedIndex].Precio; //Restando el precio del producto eliminado al monto
+
+				ProductosList.RemoveAt(ProductosDataGrid.SelectedIndex);
+				orden.DetalleProductos.RemoveAt(ProductosDataGrid.SelectedIndex); //Removemos el producto en las 2 listas
+
+				CargarProductosDataGrid();
+				MyPropertyChanged("orden");
+			}
 
 		}
 
