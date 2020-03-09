@@ -56,9 +56,13 @@ namespace RegistroOrdenes.BLL {
 			foreach (var item in Anterior.DetalleProductos) {
 
 				if (!orden.DetalleProductos.Exists(d => d.OrdenDetalleId == item.OrdenDetalleId)) {
+
 					Producto producto = ProductosBLL.Buscar(item.ProductoId);
-					producto.CantidadInventario++;        //Devolviendo el producto eliminado al inventario
-					ProductosBLL.Modificar(producto);
+
+					if (producto != null) {//Verificar si el producto existe
+						producto.CantidadInventario++;        //Devolviendo el producto eliminado al inventario
+						ProductosBLL.Modificar(producto); 
+					}
 
 					db.Entry(item).State = EntityState.Deleted;
 				}
@@ -72,9 +76,13 @@ namespace RegistroOrdenes.BLL {
 				db.Entry(item).State = estado;
 
 				if (estado == EntityState.Added) {
+
 					Producto producto = ProductosBLL.Buscar(item.ProductoId);
-					producto.CantidadInventario--;        //Restando el producto agregado al inventario
-					ProductosBLL.Modificar(producto);
+
+					if (producto != null) { //Verificar si el producto existe
+						producto.CantidadInventario--;        //Restando el producto agregado al inventario
+						ProductosBLL.Modificar(producto); 
+					}
 				}
 			}  
 
@@ -104,6 +112,16 @@ namespace RegistroOrdenes.BLL {
 				var ordenEliminada = Buscar(OrdenId);
 				db.Entry(ordenEliminada).State = EntityState.Deleted;
 				paso = (db.SaveChanges() > 0);
+
+				if (paso) {
+					foreach (var item in ordenEliminada.DetalleProductos) {
+						Producto producto = ProductosBLL.Buscar(item.ProductoId);
+						if (producto != null) {
+							producto.CantidadInventario++;
+							ProductosBLL.Modificar(producto); 
+						}
+					}
+				}
 
 			} catch (System.Exception) {
 

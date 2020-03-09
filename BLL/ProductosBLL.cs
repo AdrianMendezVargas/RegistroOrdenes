@@ -30,6 +30,17 @@ namespace RegistroOrdenes.BLL {
 
 			return paso;
 		}
+
+		public static bool Disponible(int productoId) {
+			bool disponible;
+
+			Producto producto = Buscar(productoId);
+
+			disponible = (producto != null && producto.CantidadInventario > 0);
+
+			return disponible;
+
+		}
 		public static Producto Buscar(int productoId) {
 
 			Contexto db = new Contexto();
