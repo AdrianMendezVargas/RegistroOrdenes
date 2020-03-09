@@ -44,7 +44,8 @@ namespace RegistroOrdenes {
         }
 
         private void ConsultaProductoMenuItem_Click(object sender , RoutedEventArgs e) {
-
+            ConsultaProductos consultaProductos = new ConsultaProductos();
+            consultaProductos.Show();
         }
 
         private void RegitroOrdenMenuItem_Click(object sender , RoutedEventArgs e) {
