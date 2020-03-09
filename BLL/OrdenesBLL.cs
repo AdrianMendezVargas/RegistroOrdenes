@@ -16,15 +16,24 @@ namespace RegistroOrdenes.BLL {
             return Orden;
         }
 
-        public static bool Guardar(Orden ordenes) {    //TODO: Restar la cantidad de productos vendidos al inventario
+        public static bool Guardar(Orden orden) {    //TODO: Restar la cantidad de productos vendidos al inventario
             bool paso = false;
 
             Contexto db = new Contexto();
 
             try {
 
-                db.Ordenes.Add(ordenes);
+                db.Ordenes.Add(orden);
+
                 paso = db.SaveChanges() > 0;
+
+                if (paso) {
+                    foreach (var item in orden.DetalleProductos) {
+                        Producto producto = ProductosBLL.Buscar(item.ProductoId);
+                        producto.CantidadInventario--;
+                        ProductosBLL.Modificar(producto);
+                    }
+                }
 
             } catch (System.Exception) {
 
@@ -37,14 +46,11 @@ namespace RegistroOrdenes.BLL {
             return paso;
         }
 
-        public static bool Modificar(Orden orden) { //TODO: Ejecular la eliminacion con un RawQuery
+        public static bool Modificar(Orden orden) {
             bool paso = false;
 
-            Contexto _db = new Contexto();    // Creado un Contexto auxiliar, ya que no se puede tener la misma entidad dos veces en el mismo contexto
-
             //buscar las entidades que no estan para removerlas. 
-            var Anterior = _db.Ordenes.Find(orden.OrdenId);
-            _db.Dispose(); //Cerrando el contexto auxiliar
+            var Anterior = Buscar(orden.OrdenId);
 
             Contexto db = new Contexto();
             foreach (var item in Anterior.DetalleProductos) {
@@ -87,6 +93,7 @@ namespace RegistroOrdenes.BLL {
 
                 var ordenEliminada = Buscar(OrdenId);
                 db.Entry(ordenEliminada).State = EntityState.Deleted;
+                paso = (db.SaveChanges() > 0);
 
             } catch (System.Exception) {
 

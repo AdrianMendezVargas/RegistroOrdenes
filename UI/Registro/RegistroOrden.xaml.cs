@@ -49,7 +49,6 @@ namespace RegistroOrdenes.UI.Registro {
 				guardado = OrdenesBLL.Guardar(orden);
 			} else {
 				if (ExisteEnBaseDatos()) {
-					MessageBox.Show("MOdificar");
 					guardado = OrdenesBLL.Modificar(orden);
 
 				} else {
