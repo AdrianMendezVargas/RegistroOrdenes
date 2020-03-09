@@ -1,4 +1,5 @@
-﻿using RegistroOrdenes.UI.Registro;
+﻿using RegistroOrdenes.UI.Consulta;
+using RegistroOrdenes.UI.Registro;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,8 @@ namespace RegistroOrdenes {
         }
 
         private void ConsultaClienteMenuItem_Click(object sender , RoutedEventArgs e) {
-
+            ConsultaClientes consultaClientes = new ConsultaClientes();
+            consultaClientes.Show();
         }
 
         private void RegitroProductoMenuItem_Click(object sender , RoutedEventArgs e) {

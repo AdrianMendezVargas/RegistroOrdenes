@@ -146,12 +146,6 @@ namespace RegistroOrdenes.UI.Registro {
 				CargarProductosDataGrid();
 				MyPropertyChanged("orden");
 
-				
-				
-				
-
-				
-
 			}
 
 		}
