@@ -11,7 +11,7 @@
 
         <Label Content="Producto Id" HorizontalAlignment="Left" Margin="30,79,0,0" VerticalAlignment="Top"/>
 
-        <TextBox x:Name="ProductoIdTextBox" Style="{StaticResource TextBoxInError}" HorizontalAlignment="Left" Margin="182,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
+        <TextBox x:Name="ProductoIdTextBox"  HorizontalAlignment="Left" Margin="150,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
             <TextBox.Text>
                 <Binding Path="producto.ProductoId" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnSourceUpdated="True" NotifyOnTargetUpdated="True" >
                     <Binding.ValidationRules>
@@ -21,11 +21,18 @@
             </TextBox.Text>
         </TextBox>
 
-        <Button x:Name="BuscarButton" Click="BuscarButton_Click" Content="Buscar" HorizontalAlignment="Left" Margin="311,82,0,0" VerticalAlignment="Top"/>
+        <Button  x:Name="BuscarButton" Click="BuscarButton_Click" Height="30" HorizontalAlignment="Right" Margin="0,77,50,0" VerticalAlignment="Top">
+            <Button.Content>
+                <DockPanel>
+                    <Image Source="/Resources/busqueda.png"/>
+                    <TextBlock VerticalAlignment="Center" Text="Buscar"/>
+                </DockPanel>
 
+            </Button.Content>
+        </Button>
 
         <Label Content="Descripción del Producto" HorizontalAlignment="Left" Margin="30,107,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="DescripcionTextBox" Style="{StaticResource TextBoxInError}" HorizontalAlignment="Left" Margin="230,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
+        <TextBox x:Name="DescripcionTextBox"  HorizontalAlignment="Left" Margin="230,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
             <Binding Path="producto.Descripcion" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnSourceUpdated="True" NotifyOnTargetUpdated="True">
                 <Binding.ValidationRules>
                     <validaciones:CamposOblicatoriosRule/>
@@ -34,7 +41,7 @@
         </TextBox>
 
         <Label Content="Precio del producto" HorizontalAlignment="Left" Margin="30,135,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="PrecioTextBox" Style="{StaticResource TextBoxInError}" HorizontalAlignment="Left" Margin="230,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
+        <TextBox x:Name="PrecioTextBox"  HorizontalAlignment="Left" Margin="230,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
             <Binding Path="producto.Precio" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnSourceUpdated="True" NotifyOnTargetUpdated="True" >
                 <Binding.ValidationRules>
                     <ExceptionValidationRule/>
@@ -43,7 +50,7 @@
         </TextBox>
 
         <Label Content="Cantidad en inventario" HorizontalAlignment="Left" Margin="30,162,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="CantidadInventarioTextBox" Style="{StaticResource TextBoxInError}" HorizontalAlignment="Left" Margin="230,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
+        <TextBox x:Name="CantidadInventarioTextBox"  HorizontalAlignment="Left" Margin="230,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
             <Binding Path="producto.CantidadInventario" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnSourceUpdated="True" NotifyOnTargetUpdated="True" >
                 <Binding.ValidationRules>
                     <ExceptionValidationRule/>
@@ -51,10 +58,40 @@
             </Binding>
         </TextBox>
 
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="248" Margin="0,0,0,23">
-            <Button x:Name="NuevoButton" Click="NuevoButton_Click" Content="Nuevo" HorizontalAlignment="Left" Margin="0,0,0,0" Height="30" VerticalAlignment="Bottom"/>
-            <Button x:Name="GuardarButton" Click="GuardarButton_Click" Content="Guardar" HorizontalAlignment="Left" Margin="99,0,0,0" Height="30" VerticalAlignment="Bottom"/>
-            <Button x:Name="EliminarButton" Click="EliminarButton_Click" Content="Eliminar" HorizontalAlignment="Left" Margin="201,0,0,0" Height="30" VerticalAlignment="Bottom"/>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="248" Margin="0,0,0,23" Height="30">
+
+
+            <Button  x:Name="NuevoButton" Click="NuevoButton_Click" HorizontalAlignment="Left">
+                <Button.Content>
+                    <DockPanel>
+                        <Image Source="/Resources/boton-anadir.png"/>
+                        <TextBlock VerticalAlignment="Center" Text="Nuevo"/>
+                    </DockPanel>
+
+                </Button.Content>
+            </Button>
+
+            <Button  x:Name="GuardarButton" Click="GuardarButton_Click" HorizontalAlignment="Center">
+                <Button.Content>
+                    <DockPanel>
+                        <Image Source="/Resources/guardar.png"/>
+                        <TextBlock VerticalAlignment="Center" Text="Guardar"/>
+                    </DockPanel>
+
+                </Button.Content>
+            </Button>
+
+
+            <Button  x:Name="EliminarButton" Click="EliminarButton_Click" HorizontalAlignment="Right">
+                <Button.Content>
+                    <DockPanel>
+                        <Image Source="/Resources/papelera-de-reciclaje.png"/>
+                        <TextBlock VerticalAlignment="Center" Text="Eliminar"/>
+                    </DockPanel>
+
+                </Button.Content>
+            </Button>
+
         </Grid>
 
 

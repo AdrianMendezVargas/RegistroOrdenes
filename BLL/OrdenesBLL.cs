@@ -8,12 +8,21 @@ namespace RegistroOrdenes.BLL {
 
 		public static Orden Buscar(int OrdenId) {
 			Contexto db = new Contexto();
+			Orden orden;
 
-			var Orden = db.Ordenes.Where(o => o.OrdenId == OrdenId)
-							  .Include(o => o.DetalleProductos)
-							  .SingleOrDefault();
+			try {
+				orden = db.Ordenes.Where(o => o.OrdenId == OrdenId)
+									  .Include(o => o.DetalleProductos)
+									  .SingleOrDefault();
+			} catch (System.Exception) {
 
-			return Orden;
+				throw;
+			} finally {
+
+				db.Dispose();
+			}
+
+			return orden;
 		}
 
 		public static bool Guardar(Orden orden) {    
@@ -71,7 +80,6 @@ namespace RegistroOrdenes.BLL {
 			//recorrer el detalle para verificar si se agrego o se modifico un producto
 			foreach (var item in orden.DetalleProductos) {
 
-                //Muy importante indicar que pasara con la entidad del detalle
                 var estado = item.OrdenDetalleId > 0 ? EntityState.Modified : EntityState.Added;
 				db.Entry(item).State = estado;
 

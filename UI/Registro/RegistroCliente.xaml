@@ -12,7 +12,7 @@
         <Label Content="Cliente Id" HorizontalAlignment="Left" Margin="30,79,0,0" VerticalAlignment="Top"/>
         <Label Content="Nombre del Cliente" HorizontalAlignment="Left" Margin="30,105,0,0" VerticalAlignment="Top"/>
 
-        <TextBox x:Name="ClienteIdTextBox" Style="{StaticResource TextBoxInError}" HorizontalAlignment="Left" Margin="182,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
+        <TextBox x:Name="ClienteIdTextBox"  HorizontalAlignment="Left" Margin="155,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
             <TextBox.Text>
                 <Binding Path="cliente.ClienteId" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnSourceUpdated="True" NotifyOnTargetUpdated="True" >
                     <Binding.ValidationRules>
@@ -24,7 +24,7 @@
 
 
 
-            <TextBox x:Name="NombreTextBox" Style="{StaticResource TextBoxInError}" HorizontalAlignment="Left" Margin="230,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
+        <TextBox x:Name="NombreTextBox"  HorizontalAlignment="Left" Margin="230,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
             <TextBox.Text>
                 <Binding Path="cliente.Nombre" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnSourceUpdated="True" NotifyOnTargetUpdated="True">
                     <Binding.ValidationRules>
@@ -34,15 +34,53 @@
             </TextBox.Text>
         </TextBox>
 
-        <Button x:Name="BuscarButton" Click="BuscarButton_Click" Content="Buscar" HorizontalAlignment="Left" Margin="311,82,0,0" VerticalAlignment="Top"/>
+
+        <Button  x:Name="BuscarButton" Click="BuscarButton_Click" Height="30" HorizontalAlignment="Right" Margin="0,75,50,0" VerticalAlignment="Top">
+            <Button.Content>
+                <DockPanel>
+                    <Image Source="/Resources/busqueda.png"/>
+                    <TextBlock VerticalAlignment="Center" Text="Buscar"/>
+                </DockPanel>
+
+            </Button.Content>
+        </Button>
+
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Width="248" Margin="0,159,0,0" Height="30">
 
 
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Width="248" Margin="0,159,0,0">
-            <Button x:Name="NuevoButton" Click="NuevoButton_Click" Content="Nuevo" HorizontalAlignment="Left" Margin="0,0,0,0" Height="30" VerticalAlignment="Bottom"/>
-            <Button x:Name="GuardarButton" Click="GuardarButton_Click" Content="Guardar" HorizontalAlignment="Left" Margin="99,0,0,0" Height="30" VerticalAlignment="Bottom"/>
-            <Button x:Name="EliminarButton" Click="EliminarButton_Click" Content="Eliminar" HorizontalAlignment="Left" Margin="201,0,0,0" Height="30" VerticalAlignment="Bottom"/>
+            <Button  x:Name="NuevoButton" Click="NuevoButton_Click" HorizontalAlignment="Left">
+                <Button.Content>
+                    <DockPanel>
+                        <Image Source="/Resources/boton-anadir.png"/>
+                        <TextBlock VerticalAlignment="Center" Text="Nuevo"/>
+                    </DockPanel>
+
+                </Button.Content>
+            </Button>
+
+            <Button  x:Name="GuardarButton" Click="GuardarButton_Click" HorizontalAlignment="Center">
+                <Button.Content>
+                    <DockPanel>
+                        <Image Source="/Resources/guardar.png"/>
+                        <TextBlock VerticalAlignment="Center" Text="Guardar"/>
+                    </DockPanel>
+
+                </Button.Content>
+            </Button>
+
+
+            <Button  x:Name="EliminarButton" Click="EliminarButton_Click" HorizontalAlignment="Right">
+                <Button.Content>
+                    <DockPanel>
+                        <Image Source="/Resources/papelera-de-reciclaje.png"/>
+                        <TextBlock VerticalAlignment="Center" Text="Eliminar"/>
+                    </DockPanel>
+
+                </Button.Content>
+            </Button>
+
         </Grid>
-        
+
 
     </Grid>
 </Window>

@@ -2,7 +2,7 @@
 
 namespace RegistroOrdenes.Migrations
 {
-    public partial class inicial : Migration
+    public partial class iicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -67,6 +67,21 @@ namespace RegistroOrdenes.Migrations
                         principalColumn: "OrdenId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Productos",
+                columns: new[] { "ProductoId", "CantidadInventario", "Descripcion", "Precio" },
+                values: new object[] { 1, 100, "Manzana", 25m });
+
+            migrationBuilder.InsertData(
+                table: "Productos",
+                columns: new[] { "ProductoId", "CantidadInventario", "Descripcion", "Precio" },
+                values: new object[] { 2, 50, "Coca Cola", 30m });
+
+            migrationBuilder.InsertData(
+                table: "Productos",
+                columns: new[] { "ProductoId", "CantidadInventario", "Descripcion", "Precio" },
+                values: new object[] { 3, 30, "Llaroa", 125m });
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrdenDetalle_OrdenId",

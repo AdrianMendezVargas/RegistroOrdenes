@@ -83,6 +83,29 @@ namespace RegistroOrdenes.Migrations
                     b.HasKey("ProductoId");
 
                     b.ToTable("Productos");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductoId = 1,
+                            CantidadInventario = 100,
+                            Descripcion = "Manzana",
+                            Precio = 25m
+                        },
+                        new
+                        {
+                            ProductoId = 2,
+                            CantidadInventario = 50,
+                            Descripcion = "Coca Cola",
+                            Precio = 30m
+                        },
+                        new
+                        {
+                            ProductoId = 3,
+                            CantidadInventario = 30,
+                            Descripcion = "Llaroa",
+                            Precio = 125m
+                        });
                 });
 
             modelBuilder.Entity("RegistroOrdenes.Entidades.OrdenDetalle", b =>

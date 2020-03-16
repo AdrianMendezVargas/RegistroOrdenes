@@ -6,33 +6,38 @@
         xmlns:local="clr-namespace:RegistroOrdenes.UI.Registro"
         xmlns:validaciones="clr-namespace:RegistroOrdenes.UI.Validaciones"
         mc:Ignorable="d"
-        Title="RegistroOrden" Height="434" Width="400">
+        Title="RegistroOrden" Height="494" Width="410" MinHeight="494" MinWidth="410" >
     <Grid x:Name="RegistroOrdenGrid">
 
+        <GroupBox Header="Producto Id" Margin="20,146,40,79"/>
+
         <Label Content="Orden Id" HorizontalAlignment="Left" Margin="30,79,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="OrdenIdTextBox" Style="{StaticResource TextBoxInError}" HorizontalAlignment="Left" Margin="182,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
-            <TextBox.Text>
-                <Binding Path="orden.OrdenId" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnSourceUpdated="True" NotifyOnTargetUpdated="True" >
-                    <Binding.ValidationRules>
-                        <ExceptionValidationRule/>
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox.Text>
-        </TextBox>
-
-        <Button x:Name="BuscarButton" Click="BuscarButton_Click" Content="Buscar" HorizontalAlignment="Left" Margin="311,82,0,0" VerticalAlignment="Top"/>
-
-        <Label Content="Cliente Id" HorizontalAlignment="Left" Margin="30,110,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="ClienteIdTextBox" Style="{StaticResource TextBoxInError}" HorizontalAlignment="Left" Margin="182,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168">
-            <Binding Path="orden.ClienteId" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnSourceUpdated="True" NotifyOnTargetUpdated="True" >
+        <TextBox x:Name="OrdenIdTextBox" HorizontalAlignment="Right" Margin="0,83,117,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
+            <Binding Path="orden.OrdenId" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnSourceUpdated="True" NotifyOnTargetUpdated="True" >
                 <Binding.ValidationRules>
                     <ExceptionValidationRule/>
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
 
-        <Label Content="Producto Id" HorizontalAlignment="Left" Margin="30,142,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="ProductoIdTextBox" Style="{StaticResource TextBoxInError}" HorizontalAlignment="Left" Margin="182,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="108">
+        <Button  x:Name="BuscarButton" Click="BuscarButton_Click" Height="30" HorizontalAlignment="Right" Margin="0,77,50,0" VerticalAlignment="Top">
+            <Button.Content>
+                <DockPanel>
+                    <Image Source="/Resources/busqueda.png"/>
+                    <TextBlock VerticalAlignment="Center" Text="Buscar"/>
+                </DockPanel>
+
+            </Button.Content>
+        </Button>
+        <Label Content="Cliente Id" HorizontalAlignment="Left" Margin="30,110,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="ClienteIdTextBox"  HorizontalAlignment="Right" Margin="0,114,50,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168">
+            <Binding Path="orden.ClienteId" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnSourceUpdated="True" NotifyOnTargetUpdated="True" >
+                <Binding.ValidationRules>
+                    <ExceptionValidationRule/>
+                </Binding.ValidationRules>
+            </Binding>
+        </TextBox>
+        <TextBox x:Name="ProductoIdTextBox"  TextChanged="ProductoIdTextBox_TextChanged" HorizontalAlignment="Right" Margin="0,146,119,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99">
             <Binding Path="ProductoId" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnSourceUpdated="True" NotifyOnTargetUpdated="True" >
                 <Binding.ValidationRules>
                     <ExceptionValidationRule/>
@@ -40,21 +45,64 @@
             </Binding>
         </TextBox>
 
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="248" Margin="0,0,0,23">
-            <Button x:Name="NuevoButton" Click="NuevoButton_Click" Content="Nuevo" HorizontalAlignment="Left" Margin="0,0,0,0" Height="30" VerticalAlignment="Bottom"/>
-            <Button x:Name="GuardarButton" Click="GuardarButton_Click" Content="Guardar" HorizontalAlignment="Left" Margin="99,0,0,0" Height="30" VerticalAlignment="Bottom"/>
-            <Button x:Name="EliminarButton" Click="EliminarButton_Click" Content="Eliminar" HorizontalAlignment="Left" Margin="201,0,0,0" Height="30" VerticalAlignment="Bottom"/>
-        </Grid>
-        <Button x:Name="AgregarProductoButton" Content="Agregar" Click="AgregarProductoButton_Click" HorizontalAlignment="Left" Margin="303,145,0,0" VerticalAlignment="Top"/>
-        <DataGrid x:Name="ProductosDataGrid" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="30,187,0,114" Width="320" ItemsSource="{Binding orden.DetalleProductos, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
+        <Button  x:Name="AgregarProductoButton"  Click="AgregarProductoButton_Click" Height="26" HorizontalAlignment="Right" Margin="0,142,46,0" VerticalAlignment="Top">
+            <Button.Content>
+                <DockPanel>
+                    <Image Source="/Resources/boton-anadir.png"/>
+                    <TextBlock VerticalAlignment="Center" Text="Agregar"/>
+                </DockPanel>
+
+            </Button.Content>
+        </Button>
+
+        <DataGrid x:Name="ProductosDataGrid" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False" Margin="30,214,50,114" ItemsSource="{Binding orden.DetalleProductos, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Precio" Binding="{Binding Precio}"/>
                 <DataGridTextColumn Header="Descripción" Binding="{Binding Descripcion}" />
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="EliminarProductoButton" Click="EliminarProductoButton_Click" Content="Eliminar Producto" HorizontalAlignment="Left" Margin="30,0,0,89" Height="20" VerticalAlignment="Bottom"/>
-        <Label Content="Monto" HorizontalAlignment="Left" Margin="200,306,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.613,0.194"/>
-        <TextBox x:Name="MontoTextBox" HorizontalAlignment="Left" IsReadOnly="False" Margin="251,310,0,0" Text="{Binding orden.Monto}" TextWrapping="Wrap" VerticalAlignment="Top" Width="99" Foreground="#FF15A129"/>
+        <Label Content="Monto" HorizontalAlignment="Right" Margin="0,0,154,86" VerticalAlignment="Bottom" RenderTransformOrigin="0.613,0.194"/>
+        <TextBox x:Name="MontoTextBox" HorizontalAlignment="Right" IsReadOnly="False" Margin="0,0,50,90" Text="{Binding orden.Monto}" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="99" Foreground="#FF15A129"/>
+        <Label Content="Descripción del producto" HorizontalAlignment="Left" Margin="30,173,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="DescripcionProductoTextBox" HorizontalAlignment="Right" Margin="0,177,50,0" IsReadOnly="True" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="168"/>
+
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="248" Margin="0,0,0,23" Height="30">
+
+
+            <Button  x:Name="NuevoButton" Click="NuevoButton_Click" HorizontalAlignment="Left">
+                <Button.Content>
+                    <DockPanel>
+                        <Image Source="/Resources/boton-anadir.png"/>
+                        <TextBlock VerticalAlignment="Center" Text="Nuevo"/>
+                    </DockPanel>
+
+                </Button.Content>
+            </Button>
+
+            <Button  x:Name="GuardarButton" Click="GuardarButton_Click" HorizontalAlignment="Center">
+                <Button.Content>
+                    <DockPanel>
+                        <Image Source="/Resources/guardar.png"/>
+                        <TextBlock VerticalAlignment="Center" Text="Guardar"/>
+                    </DockPanel>
+
+                </Button.Content>
+            </Button>
+
+
+            <Button  x:Name="EliminarButton" Click="EliminarButton_Click" HorizontalAlignment="Right">
+                <Button.Content>
+                    <DockPanel>
+                        <Image Source="/Resources/papelera-de-reciclaje.png"/>
+                        <TextBlock VerticalAlignment="Center" Text="Eliminar"/>
+                    </DockPanel>
+
+                </Button.Content>
+            </Button>
+
+        </Grid>
+
 
     </Grid>
 </Window>

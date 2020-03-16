@@ -8,8 +8,8 @@ using RegistroOrdenes.DAL;
 namespace RegistroOrdenes.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20200306033216_inicial")]
-    partial class inicial
+    [Migration("20200314192320_iicial")]
+    partial class iicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,6 +85,29 @@ namespace RegistroOrdenes.Migrations
                     b.HasKey("ProductoId");
 
                     b.ToTable("Productos");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductoId = 1,
+                            CantidadInventario = 100,
+                            Descripcion = "Manzana",
+                            Precio = 25m
+                        },
+                        new
+                        {
+                            ProductoId = 2,
+                            CantidadInventario = 50,
+                            Descripcion = "Coca Cola",
+                            Precio = 30m
+                        },
+                        new
+                        {
+                            ProductoId = 3,
+                            CantidadInventario = 30,
+                            Descripcion = "Llaroa",
+                            Precio = 125m
+                        });
                 });
 
             modelBuilder.Entity("RegistroOrdenes.Entidades.OrdenDetalle", b =>

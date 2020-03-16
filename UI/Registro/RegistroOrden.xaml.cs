@@ -3,7 +3,6 @@ using RegistroOrdenes.BLL;
 using RegistroOrdenes.Entidades;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 
 namespace RegistroOrdenes.UI.Registro {
@@ -81,11 +80,11 @@ namespace RegistroOrdenes.UI.Registro {
 					MessageBox.Show("Esta Orden no existe.");
 					return;
 				}
-				
+
 			} else {
 				MessageBox.Show("Esta Orden id es invalida.");
 				return;
-			} 
+			}
 
 			if (eliminado) {
 				Limpiar();
@@ -98,7 +97,7 @@ namespace RegistroOrdenes.UI.Registro {
 
 		private void BuscarButton_Click(object sender , RoutedEventArgs e) {
 
-			if (int.TryParse(OrdenIdTextBox.Text, out int ordenId)) {
+			if (int.TryParse(OrdenIdTextBox.Text , out int ordenId)) {
 				if (ExisteEnBaseDatos()) {
 					Limpiar();
 
@@ -152,22 +151,22 @@ namespace RegistroOrdenes.UI.Registro {
 
 		private void AgregarProductoButton_Click(object sender , RoutedEventArgs e) {
 
-			if (int.TryParse(ProductoIdTextBox.Text, out int nuevoProductoId)) {
+			if (int.TryParse(ProductoIdTextBox.Text , out int nuevoProductoId)) {
 
 				Producto nuevoProducto = ProductosBLL.Buscar(nuevoProductoId);
 
 				if (nuevoProducto == null) {
 					MessageBox.Show("Este producto no existe");
-					
+					return;
 				} else {
 
-					int pos = -1;
+					int pos = -1;                        //Buscando la posición del producto en productosDisponibles
 					for (int i = 0 ; i < productosDisponibles.Count ; i++) {
 						if (productosDisponibles[i].ProductoId == nuevoProductoId) {
 							pos = i;
 							break;
 						}
-						
+
 					}
 
 					if (productosDisponibles[pos].CantidadInventario > 0) { //Verificando que aun quedan en el inventario
@@ -180,7 +179,6 @@ namespace RegistroOrdenes.UI.Registro {
 
 						CargarProductosDataGrid();
 
-						
 					} else {
 						MessageBox.Show("Este producto se ha agotado");
 					}
@@ -189,7 +187,7 @@ namespace RegistroOrdenes.UI.Registro {
 				MessageBox.Show("Este Producto Id no es valido");
 			}
 
-			
+
 		}
 
 		private void CargarProductosDataGrid() {
@@ -243,6 +241,20 @@ namespace RegistroOrdenes.UI.Registro {
 			return (orden != null);
 		}
 
-		
+		private void ProductoIdTextBox_TextChanged(object sender , System.Windows.Controls.TextChangedEventArgs e) {
+			if (int.TryParse(ProductoIdTextBox.Text , out int nuevoProductoId)) {
+				Producto producto = ProductosBLL.Buscar(nuevoProductoId);
+				if (producto != null) {
+					DescripcionProductoTextBox.Text = producto.Descripcion;
+				} 
+				else {
+					DescripcionProductoTextBox.Text = "No encontrado";
+				}
+			} else {
+				DescripcionProductoTextBox.Text = "Producto Id invalido";
+			}
+
+			
+		}
 	}
 }
