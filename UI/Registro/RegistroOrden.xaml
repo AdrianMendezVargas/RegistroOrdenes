@@ -61,7 +61,17 @@
                 <DataGridTextColumn Header="Descripción" Binding="{Binding Descripcion}" />
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="EliminarProductoButton" Click="EliminarProductoButton_Click" Content="Eliminar Producto" HorizontalAlignment="Left" Margin="30,0,0,89" Height="20" VerticalAlignment="Bottom"/>
+
+        <Button  x:Name="EliminarProductoButton" Click="EliminarProductoButton_Click" HorizontalAlignment="Left" Margin="30,0,0,89" Height="20" VerticalAlignment="Bottom">
+            <Button.Content>
+                <DockPanel>
+                    <Image Source="/Resources/papelera-de-reciclaje.png"/>
+                    <TextBlock VerticalAlignment="Center" Text="Eliminar producto"/>
+                </DockPanel>
+
+            </Button.Content>
+        </Button>
+
         <Label Content="Monto" HorizontalAlignment="Right" Margin="0,0,154,86" VerticalAlignment="Bottom" RenderTransformOrigin="0.613,0.194"/>
         <TextBox x:Name="MontoTextBox" HorizontalAlignment="Right" IsReadOnly="False" Margin="0,0,50,90" Text="{Binding orden.Monto}" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="99" Foreground="#FF15A129"/>
         <Label Content="Descripción del producto" HorizontalAlignment="Left" Margin="30,173,0,0" VerticalAlignment="Top"/>

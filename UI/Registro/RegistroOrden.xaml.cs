@@ -11,8 +11,7 @@ namespace RegistroOrdenes.UI.Registro {
 	/// </summary>
 	public partial class RegistroOrden : Window, INotifyPropertyChanged {
 
-		public Orden _orden { get; set; }
-		public Orden orden { get { return _orden; } set { _orden = value; MyPropertyChanged("orden"); } }
+		public Orden orden { get; set; }
 
 		public int ProductoId { get; set; }
 		public List<Producto> ProductosAgregadosList { get; set; }
@@ -25,10 +24,10 @@ namespace RegistroOrdenes.UI.Registro {
 		public RegistroOrden() {
 			InitializeComponent();
 			orden = new Orden();
-			_orden = new Orden();
 			ProductosAgregadosList = new List<Producto>();
 			productosDisponibles = ProductosBLL.GetList(p => true);
-			RegistroOrdenGrid.DataContext = this;
+			//RegistroOrdenGrid.DataContext = this;
+			this.DataContext = this;
 
 		}
 

@@ -55,11 +55,38 @@ namespace RegistroOrdenes.BLL {
 			return paso;
 		}
 
+		/*public static bool Modificar(Orden orden) {
+			bool paso = false;
+
+			Contexto db = new Contexto();
+
+			db.Database.ExecuteSqlRaw($"Delete From OrdenDetalle Where OrdenId = {orden.OrdenId}");
+
+			foreach (var item in orden.DetalleProductos) {
+				db.Entry(item).State = EntityState.Added;
+			}
+
+			try {
+
+				db.Entry(orden).State = EntityState.Modified;
+				paso = db.SaveChanges() > 0;
+
+			} catch (System.Exception) {
+
+				throw;
+
+			} finally {
+				db.Dispose();
+			}
+
+			return paso;
+		}*/
+
 		public static bool Modificar(Orden orden) {
 			bool paso = false;
 
-            //buscar las entidades que no estan para removerlas. 
-            var Anterior = Buscar(orden.OrdenId);
+			//buscar las entidades que no estan para removerlas. 
+			var Anterior = Buscar(orden.OrdenId);
 
 			Contexto db = new Contexto();
 			foreach (var item in Anterior.DetalleProductos) {
@@ -70,17 +97,17 @@ namespace RegistroOrdenes.BLL {
 
 					if (producto != null) {//Verificar si el producto existe
 						producto.CantidadInventario++;        //Devolviendo el producto eliminado al inventario
-						ProductosBLL.Modificar(producto); 
+						ProductosBLL.Modificar(producto);
 					}
 
 					db.Entry(item).State = EntityState.Deleted;
 				}
-			}    
+			}
 
 			//recorrer el detalle para verificar si se agrego o se modifico un producto
 			foreach (var item in orden.DetalleProductos) {
 
-                var estado = item.OrdenDetalleId > 0 ? EntityState.Modified : EntityState.Added;
+				var estado = item.OrdenDetalleId > 0 ? EntityState.Modified : EntityState.Added;
 				db.Entry(item).State = estado;
 
 				if (estado == EntityState.Added) {
@@ -89,10 +116,10 @@ namespace RegistroOrdenes.BLL {
 
 					if (producto != null) { //Verificar si el producto existe
 						producto.CantidadInventario--;        //Restando el producto agregado al inventario
-						ProductosBLL.Modificar(producto); 
+						ProductosBLL.Modificar(producto);
 					}
 				}
-			}  
+			}
 
 			try {
 				//Indicar que se esta modificando el encabezado
